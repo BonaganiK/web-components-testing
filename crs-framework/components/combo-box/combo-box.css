@@ -1,0 +1,122 @@
+:host {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: max-content;
+  outline: none;
+  border: var(--border);
+  border-radius: var(--radius);
+}
+:host(:focus-within) input {
+  border: var(--border);
+  border-color: var(--blue);
+  background: var(--blue-s2);
+}
+header {
+  display: flex;
+  position: relative;
+}
+input,
+button {
+  height: 2rem;
+  outline: none;
+  border: 0;
+}
+button {
+  font-family: crsfrw;
+  cursor: pointer;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border-left: 0;
+  width: 2rem;
+}
+#btnClear {
+  position: absolute;
+  right: 2rem;
+  font-size: 1.125rem;
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+}
+input {
+  border-radius: var(--radius) 0 0 var(--radius) !important;
+}
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+.hide {
+  display: none;
+}
+ul {
+  background: var(--window);
+  border: var(--border);
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-shadow: var(--drop-shadow);
+  border-radius: var(--radius);
+  max-height: 300px;
+  overflow: auto;
+  user-select: none;
+}
+ul:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: transparent;
+  z-index: -1;
+}
+li.highlighted {
+  background: var(--grey-s3);
+}
+li {
+  padding: var(--padding);
+  cursor: pointer;
+  border-radius: var(--radius);
+  border: var(--border);
+  border-color: transparent;
+}
+li:hover:not([disabled]) {
+  background: var(--grey-s3);
+  border: var(--border);
+}
+li.hidden {
+  display: none;
+}
+li[aria-selected] {
+  background: var(--blue-s2);
+  position: relative;
+}
+li[aria-selected]:before {
+  content: "";
+  background: var(--blue);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.25rem;
+  height: 100%;
+}
+li[aria-selected]:after {
+  content: "check";
+  font-family: crsfrw;
+  color: var(--blue);
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: 0;
+  width: 1.5rem;
+  height: 100%;
+}
+li[aria-selected].highlighted,
+li[aria-selected]:hover {
+  background: var(--grey-s3);
+}
+li.disabled {
+  pointer-events: none;
+  color: var(--grey);
+}

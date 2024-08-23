@@ -1,0 +1,235 @@
+<style>
+    interactive-map {
+        display: block;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    interactive-map #map {
+        height: 100%;
+        width: 100%;
+        cursor: default;
+    }
+
+    interactive-map .point {
+        font-family: crsfrw;
+        font-size: 3rem;
+        font-weight: 500;
+        color: #E00000;
+        text-shadow: -1px -1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+        /*This is important for vertical centering of icon*/
+        line-height: 3rem;
+        min-width: 3rem;
+    }
+
+    interactive-map .point.selected {
+        color: var(--cl-primary);
+    }
+
+    interactive-map .handle[data-type="draghandle"] {
+        background: var(--cl-primary-alt);
+        border: var(--border);
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        border: 0.125rem solid var(--cl-primary);
+        box-sizing: border-box;
+    }
+
+    interactive-map .handle[data-type="subdivide"] {
+        background: var(--cl-primary-alt);
+        border: var(--border);
+        height: 0.75rem;
+        width: 0.75rem;
+        border-radius: 50%;
+        border: 0.125rem solid var(--cl-primary);
+        margin: 0.125rem;
+        box-sizing: border-box;
+    }
+
+    interactive-map .leaflet-control-zoom {
+        display: flex;
+
+        flex-direction: row-reverse;
+    }
+
+    /* Make the slotted drawing tools appear at the top right of the map */
+    interactive-map #drawing-tools {
+        margin: var(--margin);
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 401;
+    }
+
+    interactive-map #search-tools {
+        box-shadow: var(--drop-shadow);
+        margin: var(--margin);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 401;
+    }
+
+    interactive-map [aria-hidden="true"] {
+        display: unset !important;
+    }
+
+    interactive-map .leaflet-control-attribution a {
+        display: unset !important;
+        font-size: unset !important;
+    }
+
+    .leaflet-control-zoom-in::after, .leaflet-control-zoom-out::after {
+        font-family: crsfrw;
+        background: var(--cl-primary-alt);
+        height: 1rem;
+        width: 1rem;
+        font-weight: normal;
+    }
+
+    .leaflet-control-zoom-in, .leaflet-control-zoom-out {
+        border-radius: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .leaflet-control-zoom-in::after {
+        content: "zoom-in";
+    }
+
+    .leaflet-control-zoom-out::after {
+        content: "zoom-out";
+    }
+
+    .leaflet-control-zoom-in span {
+        display: none !important;
+    }
+
+    .leaflet-control-zoom-out span {
+        display: none !important;
+    }
+
+    .leaflet-control-zoom {
+        bottom: 0;
+        background: var(--cl-primary-alt);
+        border: var(--radius);
+        margin-left: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+        border-radius: 0.5rem !important;
+    }
+
+    .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+        border: var(--border);
+        border-radius: 0.5rem;
+        box-shadow: var(--drop-shadow);
+    }
+
+    .leaflet-tooltip {
+        margin: 0;
+        padding: 0;
+    }
+
+    .leaflet-tooltip table {
+        padding: 0.5rem;
+    }
+
+    .leaflet-tooltip hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: var(--border);
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .leaflet-tooltip h3 {
+        padding: var(--half-padding) 1.5rem var(--half-padding) var(--padding);
+        margin: 0;
+        font-size: small;
+        font-weight: bold;
+        color: var(--grey-s1);
+        background: var(--grey-s3);
+        border-bottom: var(--border);
+        position: relative;
+    }
+
+    .leaflet-tooltip h3:before {
+        content: "";
+        background: var(--blue);
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        left: -1px;
+        top: 0;
+    }
+
+    .leaflet-tooltip h3.info:before {
+        background: var(--blue);
+    }
+
+    .leaflet-tooltip h3.warning:before {
+        background: var(--orange);
+    }
+
+    .leaflet-tooltip h3.error:before {
+        background: var(--red);
+    }
+
+    .leaflet-tooltip h3.success:before {
+        background: var(--green);
+    }
+
+    .leaflet-tooltip .map-popup-label {
+        text-transform: capitalize;
+    }
+
+    .leaflet-tooltip td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 12rem;
+    }
+
+    .coordinate-display {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        bottom: 0.5rem;
+        left: 5rem;
+        height: 2rem;
+        background: var(--cl-primary-alt);
+        padding: var(--padding);
+        border: var(--border);
+        border-radius: 0.5rem;
+        box-shadow: var(--drop-shadow);
+        z-index: 400;
+        font-size: 14px;
+    }
+
+    .coordinate-display:empty {
+        display: none;
+    }
+
+    .coordinate-display::before {
+        content: "location-pin";
+        font-family: crsfrw;
+        font-size: 1rem;
+        color: var(--blue);
+    }
+
+    @media (max-width: 768px) {
+        /*  Hide the coordinate display on mobile */
+        .coordinate-display {
+            display: none;
+        }
+    }
+
+
+</style>
+<div id="map"></div>
+<div id="drawing-tools"></div>
+<div id="search-tools"></div>

@@ -1,0 +1,198 @@
+<style>
+    @import "./packages/crs-framework/styles/lib/buttons.css";
+
+    :host {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 3rem;
+        background: var(--grey-s3);
+        border-radius: 0.5rem;
+
+    }
+
+    .flexed {
+        display: flex;
+    }
+
+    .justified {
+        justify-content: center;
+    }
+
+    .aligned {
+        align-items: center;
+    }
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    button.icon,
+    #icon-status {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0 0.125rem;
+        padding: 0;
+    }
+
+    #actions {
+        margin: 0 0.375rem 0 0.125rem ;
+    }
+
+    span.icon:before,
+    label.icon:before{
+        font-family: crsfrw;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    span#icon-attach-file {
+        height: 1.5rem;
+        min-width: 1.25rem;
+    }
+
+    span#icon-attach-file:before {
+        content: 'attach-file';
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    span#icon-status:before {
+        content: 'timelapse';
+        color: var(--blue);
+    }
+
+    button[data-action="delete"] {
+        color: var(--red);
+    }
+
+    label#btn-upload {
+        outline: none;
+        cursor: pointer;
+        border: var(--border);
+        border-color: var(--grey);
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        box-sizing: border-box;
+        height: var(--input-height);
+        min-width: 6.625rem;
+        margin: 0 var(--margin) 0 0;
+        font-weight: bold;
+        background-color: var(--grey-s4);
+        font-size: 0.875rem;
+    }
+
+    label#btn-upload:hover{
+        background-color: var(--grey-s2);
+        outline: none;
+    }
+
+    label#btn-upload:active:not([disabled]) {
+        background-color: var(--blue) !important;
+        color: var(--alt-fg);
+        fill: var(--alt-fg);
+    }
+
+    label#btn-upload:before {
+        content: 'upload';
+        margin-right: 0.25rem;
+        font-size: 1rem;
+    }
+
+    #lbl-main {
+        margin-right: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    :host([data-state="upload"]) #lbl-main {
+        font-size: 0.875rem;
+    }
+
+
+    #lbl-file-size,
+    #icon-attach-file:before {
+        color: var(--grey-s1);
+    }
+
+    #icon-status,
+    #icon-attach-file {
+        margin: var(--margin);
+    }
+
+    :host([data-state="upload"]) .grey-upload {
+        color: var(--grey-s1);
+    }
+
+    :host([data-state="uploading"]) .grey-uploading {
+        color: var(--grey-s1);
+    }
+
+    :host([data-state="uploaded"]) .grey-uploaded {
+        color: var(--grey-s1);
+    }
+
+    :host([data-state="upload"]) .upload-hidden {
+        display: none;
+    }
+
+    :host([data-state="uploading"]) .uploading-hidden {
+        display: none;
+    }
+
+    :host([data-state="uploaded"]) .uploaded-hidden {
+        display: none;
+    }
+</style>
+
+<span id="icon-attach-file" class="icon"></span>
+
+<span class="flexed aligned uploading-hidden uploaded-hidden">
+    <label id="btn-upload" for="inp-upload" class="icon flexed aligned justified">&{fileUploader.upload}</label>
+    <input id="inp-upload" type="file">
+</span>
+
+<label id="lbl-main" class="grey-upload grey-uploading">&{fileUploader.dragDrop}</label>
+
+<label id="lbl-file-size" class="flexed aligned justified upload-hidden">&{fileUploader.fileSize}</label>
+
+<span id="icon-status" class="icon flexed aligned justified upload-hidden uploaded-hidden"></span>
+
+<span id="actions" class="flexed upload-hidden uploading-hidden">
+    <button class="icon" id="btn-replace" data-action="replace" aria-label="&{fileUploader.replace}" title="&{fileUploader.replace}">swap-horiz</button>
+    <button class="icon" id="btn-download" data-action="download" aria-label="&{fileUploader.download}" title="&{fileUploader.download}">download</button>
+    <button class="icon" id="btn-delete" data-action="delete" aria-label="&{fileUploader.delete}" title="&{fileUploader.delete}">delete-outline</button>
+</span>
+
+<template id="drop-template">
+    <div>
+        <span id="insert-photo"></span>
+        <h2>Drop file here</h2>
+    </div>
+</template>
+<template id="dialog-content">
+    <style>
+        .file-uploader-mobile-buttons {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .file-uploader-mobile-buttons button {
+            width: 100%;
+            justify-content: left;
+            padding: 0.75rem 0.75rem 0.75rem 0;
+            border: none;
+            line-height: normal;
+            text-align: left;
+        }
+    </style>
+    <section class="file-uploader-mobile-buttons">
+        <button class="transparent" data-action="replace" aria-label="&{fileUploader.replace}">&{fileUploader.replace}</button>
+        <button class="transparent" data-action="download" aria-label="&{fileUploader.download}">&{fileUploader.download}</button>
+        <button class="transparent" data-action="delete" aria-label="&{fileUploader.delete}">&{fileUploader.delete}</button>
+    </section>
+</template>

@@ -1,0 +1,231 @@
+<style>
+    @import "./packages/crs-framework/styles/lib/narrow-scrollbar.css";
+    :host {
+        --icon-font: "";
+        --height: 100%;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 4.5rem 2rem;
+        z-index: 999999;
+        user-select: none;
+        background: #00000030;
+    }
+
+    .popup {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    ul, .popup,
+    #no-result-header{
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        border-radius: 0 0 0.5rem 0.5rem;
+        overflow-y: auto;
+        max-height: 100%;
+        width: 100%;
+        background: var(--window);
+        box-sizing: border-box;
+        border: var(--border);
+        border-top: none;
+    }
+
+    ul, #btnBack {
+        padding: 0;
+    }
+
+    ul[data-no-content="true"] ~ .no-content {
+        background: var(--window);
+        display: flex;
+    }
+
+
+    ul {
+        position: relative;
+    }
+
+    hr {
+        border: var(--border);
+    }
+
+    li {
+        --cl-icon: black;
+        padding: 0.5rem;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        border: none;
+    }
+
+    li,
+    .parent-menu-item:after
+     {
+        display: flex;
+        align-items: center;
+    }
+
+    li > *:not(ul) {
+        pointer-events: none;
+    }
+
+    li[hidden], .submenu,
+    .no-content,
+    #btnBack[data-visible = "false"] {
+        display: none;
+    }
+
+    li[data-icon]::before {
+        content: attr(data-icon);
+        font-family: var(--icon-font);
+        font-size: 1.5rem;
+        margin-right: var(--padding);
+        color: var(--cl-icon);
+    }
+
+    li:not(li[data-icon]) {
+        padding-left: var(--margin);
+    }
+
+    li[aria-selected="true"]::after {
+        content: "check";
+        font-family: crsfrw;
+        position: relative;
+        right: 8px;
+        color: var(--blue);
+    }
+
+    [aria-hidden="true"] {
+        display: none !important;
+    }
+
+    filter-header {
+        --close-display: inline-block;
+        border-radius: 0.25rem 0.25rem 0 0;
+    }
+
+    .parent-menu-item[aria-expanded="true"] > .submenu {
+        display: block;
+        z-index: 1;
+    }
+
+    #btnBack {
+        border: none;
+    }
+
+    .parent-menu-item[aria-expanded="true"] {
+         padding: 0;
+     }
+
+    .parent-menu-item[aria-expanded="true"] >:not(ul),
+    .parent-menu-item[aria-expanded="true"]:before,
+    .parent-menu-item[aria-expanded="true"]:after {
+        display: none;
+    }
+
+    .parent-menu-item:after {
+        font-family: var(--icon-font);
+        font-size: 1.5rem;
+        content: "chevron-right";
+        position: relative;
+        right: var(--padding);
+        top: 0;
+        height: 100%;
+        justify-content: center;
+    }
+
+    #btnBack {
+        font-family: var(--icon-font);
+        font-size: 1.25rem;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-right: none;
+        border-top-left-radius: var(--radius);
+        background: transparent;
+        position: relative;
+    }
+
+    .toolbar {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        height: 2.5rem;
+        border: var(--border);
+        box-sizing: border-box;
+        border-radius: 0.25rem 0.25rem 0 0;
+        background: var(--grey-surface)
+    }
+
+    #btnBack::after {
+        position: absolute;
+        content: "";
+        top: 0.25rem;
+        right: 0;
+        bottom: 0.25rem;
+        width: 0.0625rem;
+        background: var(--grey-s2);
+    }
+
+    #btnBack[data-visible = "true"] {
+        display: inline;
+    }
+
+    #no-result-header {
+        font-size: 1rem;
+        color: var(--grey-s1);
+    }
+
+    #no-result-info {
+        font-size: 1rem;
+        color: var(--grey-s1);
+        margin: 0.25rem 0.25rem 0.25rem 0;
+    }
+
+    ul[data-no-content="true"] ~ .no-content {
+        flex-direction: column;
+        padding: 0.5rem;
+        border-top: 0.125rem solid var(--blue);
+        border-radius: 0 0 0.25rem 0.25rem;
+    }
+
+    #group-header {
+        padding-left: 0.5rem;
+        font-weight: bold;
+    }
+
+    ul.child-expanded
+    {
+        background: transparent;
+        border: none;
+    }
+    ul.child-expanded > li:not([aria-expanded="true"]){
+        display: none;
+    }
+
+    li span {
+        flex: 1;
+    }
+
+</style>
+
+<div class="popup">
+    <div class="toolbar">
+        <button id="btnBack" ref="btnBack" data-visible = "false">arrow-left</button>
+        <filter-header id="filter-header" for="ul"></filter-header>
+        <span id="group-header" aria-hidden="true" ref="groupHeader"></span>
+    </div>
+    <ul id="ul-container" ref="container" role="menu" tabindex="0" class="narrow-scrollbar" data-closable="true"></ul>
+    <div class="no-content">
+        <h2 id="no-result-header">&{contextMenu.labels.noResultsFound}</h2>
+        <p id="no-result-info">&{contextMenu.labels.tryADifferentSearchTerm}</p>
+    </div>
+</div>

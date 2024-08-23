@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="../.../packages/crs-framework/styles/lib/input.css" type="text/css">
+
+<template id="tplDefaultItem">
+    <li data-value.attr="value">${text}</li>
+</template>
+
+<header keyup.call="search">
+    <input
+        id="search"
+        type="search"
+        value.bind="searchText"
+    />
+
+    <button id="btnClear" click.call="clear">clear</button>
+
+    <button
+        id="btnDropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        click.call="showOptions(true)">chevron-down</button>
+</header>
+
+<ul
+    class="hide"
+    click.classlist.toggle="[ul](hide, red)"
+    click.call="select">
+</ul>

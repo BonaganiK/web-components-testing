@@ -1,0 +1,13 @@
+:host {
+  position: fixed;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  padding: var(--padding);
+  background: white;
+  border: var(--border);
+  border-radius: var(--radius);
+}
+button {
+  height: 2rem;
+}

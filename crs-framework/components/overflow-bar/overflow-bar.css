@@ -1,0 +1,129 @@
+:host {
+  --input-size: 2.5rem;
+  display: block;
+  width: 100%;
+  height: 3rem;
+  background: var(--grey-s3);
+  user-select: none;
+}
+* {
+  box-sizing: border-box;
+}
+[aria-hidden],
+::slotted([aria-hidden]) {
+  display: none;
+}
+[data-id=overflow] {
+  position: absolute;
+  padding: 0;
+  top: 0;
+  left: 0;
+  border: var(--border);
+  margin: 0;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--radius);
+  background: var(--window);
+  list-style: none;
+}
+[data-id=btnOverflow] {
+  font-family: crsfrw;
+  width: var(--input-size) !important;
+  height: var(--input-size) !important;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+}
+.overflow-cell {
+  position: relative;
+  display: flex;
+  width: max-content;
+  height: 2.5rem;
+  align-items: center;
+  background: var(--window);
+  border: var(--border);
+  border-radius: var(--radius);
+}
+.pinned-content {
+  position: relative;
+  color: var(--blue);
+  font-weight: bold;
+  cursor: pointer;
+  height: 2.5rem;
+  background: transparent;
+  border-width: 0;
+  border-right: var(--border);
+}
+.pinned .pinned-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:host([data-display="icons"]) .pinned-content {
+  font-family: crsfrw;
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-weight: normal;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 0 var(--half-padding);
+}
+.items-cell {
+  width: 100%;
+  overflow: hidden;
+}
+.items {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+}
+:host([data-count]) .items {
+  justify-content: flex-end;
+  width: initial !important;
+}
+ul {
+  z-index: 1;
+}
+li {
+  padding: var(--padding);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+li[aria-selected]::after {
+  content: "check";
+  font-family: crsfrw;
+  font-size: 1.2rem;
+  margin-left: var(--padding);
+  color: var(--blue);
+}
+li:hover {
+  background: var(--grey-s3);
+}
+li[data-icon]::before {
+  content: attr(data-icon);
+  font-family: crsfrw;
+  margin-right: var(--padding);
+}
+li[data-invalid=true] {
+  color: var(--red);
+  font-weight: normal;
+}
+li[data-invalid=true]:before {
+  content: "info-outline";
+  font-family: crsfrw;
+  font-size: 1.2rem;
+  color: var(--red);
+  margin: 0 var(--padding) 0 0;
+}
+li.highlighted {
+  background: var(--grey-s2);
+}

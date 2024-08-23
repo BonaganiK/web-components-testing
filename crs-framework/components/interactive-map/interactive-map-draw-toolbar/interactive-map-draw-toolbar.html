@@ -1,0 +1,83 @@
+<style>
+    @import "./packages/crs-framework/styles/lib/buttons.css";
+
+    :host {
+        display: flex;
+        background: var(--cl-primary-alt);
+        height: 2.5rem;
+        align-items: center;
+        border-radius: 0.5rem;
+        border: var(--border);
+        box-shadow: var(--drop-shadow);
+    }
+
+    :host(.max-reached) .add-button {
+        color: var(--grey-s2);
+    }
+
+    button.icon {
+        height: 2rem;
+        width: 2rem;
+        background: none;
+        margin: 0 0.125rem;
+    }
+
+    .separator {
+        width: 1px;
+        height: 2rem;
+        background: var(--grey-s2);
+        margin: 0 var(--half-margin);
+    }
+
+    .separator:last-child {
+        display: none;
+    }
+
+    .accept{
+        color: var(--green);
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+
+    [data-id="remove"]
+    {
+        color: var(--red);
+    }
+
+    [data-id="remove"]:disabled
+    {
+        color: var(--grey-s2);
+    }
+
+    button.active {
+        background: var(--blue);
+        color: var(--cl-primary-alt);
+    }
+
+</style>
+
+
+<button class="icon" click.call="setMode('select')" classlist.if="mode == 'select' ? 'active'"  disabled.if="mode != 'none'">pointer</button>
+<div class="separator"></div>
+
+<button class="icon add-button"  classlist.if="mode == 'draw-point' ? 'active'" click.call="setMode('draw-point')" disabled.if="mode != 'none' && mode != 'select'? true">location-pin</button>
+<button class="icon add-button" classlist.if="mode == 'draw-polyline' ? 'active'" click.call="setMode('draw-polyline')" disabled.if="mode != 'none' && mode != 'select'? true">line-shape</button>
+<button class="icon add-button" classlist.if="mode == 'draw-polygon' ? 'active'" click.call="setMode('draw-polygon')" disabled.if="mode != 'none' && mode != 'select'? true">polygon</button>
+
+<div class="separator" hidden.if="selectedIndex == null && (mode == 'none' || mode == 'select')"></div>
+
+<div class="flex" hidden.if="mode != 'draw-polyline' && mode != 'draw-polygon' && mode != 'draw-point'">
+    <button class="icon accept" click.call="accept">check</button>
+    <button class="icon" click.call="discard">clear</button>
+    <div class="separator" hidden.if="selectedIndex == null"></div>
+</div>
+
+
+<button data-id="remove" class="icon" hidden.if="selectedIndex == null" click.call="removeSelected">delete</button>

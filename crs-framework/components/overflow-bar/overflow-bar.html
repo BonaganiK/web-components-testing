@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="items-cell">
+        <div class="items" ref="items">
+            <slot></slot>
+        </div>
+    </div>
+
+    <div class="overflow-cell" ref="overflowCell">
+        <button ref="pinnedContent" class="pinned-content" aria-hidden="true"></button>
+        <button data-id="btnOverflow" aria-hidden="true" ref="btnOverflow">kabab-horiz</button>
+    </div>
+</div>
+
+<ul data-id="overflow" ref="overflow" aria-hidden="true"></ul>

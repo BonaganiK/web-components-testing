@@ -1,0 +1,15 @@
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+header {
+  height: auto;
+}
+data-grid2-cells {
+  height: 1024px;
+  width: 1024px;
+}

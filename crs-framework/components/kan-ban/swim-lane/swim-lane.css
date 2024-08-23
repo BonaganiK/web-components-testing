@@ -1,0 +1,19 @@
+:host {
+  --lane-width: 10rem;
+  width: var(--lane-width);
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border: var(--border);
+}
+header {
+  min-height: 2rem;
+  border-bottom: var(--border);
+}
+ul {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}

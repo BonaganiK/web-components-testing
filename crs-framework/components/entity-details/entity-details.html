@@ -1,0 +1,43 @@
+<header>
+    <button id="btnCollapseAll" data-action="collapseAll">&{entityDetails.collapseAll}</button>
+    <div class="spacer"></div>
+    <button id="btnRefresh" class="icon" data-action="refresh">refresh</button>
+    <button id="btnSorting" class="icon" data-action="sort">sort-ascending</button>
+</header>
+
+<template id="entity-template">
+    <li class="entity-item" data-id="" aria-expanded="false">
+        <div class="entity">
+            <div class="chevron right" data-action="expand"></div>
+            <div class="entity-value"></div>
+            <div class="count"></div>
+        </div>
+        <ul></ul>
+    </li>
+</template>
+
+<template id="entity-item-template">
+    <li class="entity-child-item" aria-expanded="false">
+        <div>
+            <div class="chevron right" data-action="expandItem"></div>
+            <div class="status">drag-vert-alt</div>
+            <div class="value"></div>
+            <div class="description"></div>
+            <div class="count"></div>
+        </div>
+
+        <ul></ul>
+    </li>
+</template>
+
+<template id="rule-item-template">
+    <li class="rule-item">
+        <div class="status">drag-vert-alt</div>
+        <div class="value"></div>
+        <div class="description"></div>
+    </li>
+</template>
+
+<div class="container">
+    <ul class="items"></ul>
+</div>

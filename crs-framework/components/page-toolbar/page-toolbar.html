@@ -1,0 +1,69 @@
+<style>
+    @import "./packages/crs-framework/styles/lib/buttons.css";
+
+    :host {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: var(--grey-surface);
+        border: var(--border);
+        padding: var(--padding);
+    }
+
+    :host * {
+        box-sizing: border-box;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    input {
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    button {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    #edtPageSize {
+        margin-right: var(--padding);
+    }
+
+    #edtPageNumber {
+        width: 2.5rem;
+    }
+
+    #divPageCount {
+        color: var(--grey-s1);
+    }
+
+    .divide {
+        margin: 0 var(--padding);
+        color: var(--grey-s1);
+    }
+
+
+</style>
+
+<input id="edtPageSize" type="number" min="1" max="100" value="10" data-property="pageSize" />
+<div id="divLabel">&{pageToolbar.rowsPerPage}</div>
+<div class="spacer"></div>
+
+<div id="divTotalCount"></div>
+<button id="gotoFirstPage" class="icon transparent">first-page</button>
+<button id="gotoPreviousPage" class="icon transparent">chevron-left</button>
+<input id="edtPageNumber" type="number" min="1" value="1" data-property="pageNumber"/>
+<div class="divide">/</div>
+<div id="divPageCount"></div>
+<button id="gotoNextPage" class="icon transparent">chevron-right</button>
+<button id="gotoLastPage" class="icon transparent">last-page</button>

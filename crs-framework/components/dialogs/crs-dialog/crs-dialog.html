@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="./../../.../packages/crs-framework/styles/lib/buttons.css">
+
+<header>
+    <slot name="header"></slot>
+    <button click.call="toggleFullscreen" class="icon transparent" id="btnResize" data-action="resize" aria-label="&{dialog.resize}">open-fullscreen</button>
+    <button click.call="close" class="icon transparent" id="btnClose" data-action="close" aria-label="&{dialog.close}">close</button>
+</header>
+
+<div class="overflow">
+    <slot name="body"></slot>
+</div>
+
+<footer>
+    <slot name="footer"></slot>
+</footer>

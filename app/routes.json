@@ -1,0 +1,15 @@
+{
+    "default": "welcome",
+    "root": "app",
+    
+    "routes": [
+        {
+            "title": "Welcome",
+            "view": "welcome"
+        },
+        {
+            "title": "About",
+            "view": "about"
+        }
+   ]
+}
